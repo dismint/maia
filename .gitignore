@@ -15,3 +15,9 @@ packages/template-compiler/browser.js
 dist
 temp
 types/v3-generated.d.ts
+
+/src/generated/prisma
+.env
+
+/generated/prisma
+dev.db
