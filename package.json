@@ -13,7 +13,9 @@
     "preview": "vite preview",
     "build-only": "vite build",
     "type-check": "vue-tsc --build",
-    "format": "prettier --write --experimental-cli src/"
+    "format": "prettier --write --experimental-cli src/",
+    "prisma-migrate": "npx prisma migrate dev",
+    "prisma-generate": "npx prisma generate"
   },
   "dependencies": {
     "@prisma/adapter-better-sqlite3": "^7.2.0",
