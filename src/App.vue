@@ -1,6 +1,11 @@
 <template>
   <!-- Landing page with runaway buttons -->
   <div v-if="isLandingPage" ref="container" class="app-container" @mousemove="onMouseMove">
+    <!-- Form on top of buttons -->
+    <div style="position: relative; z-index: 10; pointer-events: auto;">
+      <h1>Create User</h1>
+      <CreateUser />
+    </div>
     <button
       v-for="(button, index) in buttons"
       :key="index"
@@ -25,7 +30,14 @@ import { ref, computed } from 'vue'
 import { useRunawayButtons } from './useRunawayButtons'
 import { useRouter, useRoute, RouterView } from 'vue-router'
 
+// Partner's imports (commented out)
+// import { RouterLink, RouterView } from 'vue-router'
+import CreateUser from './components/CreateUser.vue'
+
 export default {
+  components: {
+    CreateUser, 
+  },
   setup() {
     const container = ref<HTMLElement | null>(null)
     const { buttons, moveButton } = useRunawayButtons(3)
