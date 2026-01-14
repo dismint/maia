@@ -10,17 +10,18 @@
       </p>
 
       <div class="flex justify-center gap-4">
-        <button class="px-8 py-4 rounded-2xl bg-emerald-600 text-white text-lg font-semibold shadow hover:bg-emerald-700 transition">
-          Play Now
-        </button>
-        <button class="px-8 py-4 rounded-2xl bg-white text-emerald-700 text-lg font-semibold shadow hover:bg-gray-100 transition">
-          Learn More
-        </button>
+        <nav>
+          <RouterLink to="/">Go to Home</RouterLink>
+          <RouterLink to="/about">Go to About</RouterLink>
+        </nav>
+        <main>
+          <RouterView />
+        </main>
       </div>
     </section>
   </div>
 </template>
 
 <script setup>
-// no logic needed yet
+import { RouterLink, RouterView } from 'vue-router'
 </script>
