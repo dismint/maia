@@ -1,58 +1,36 @@
 <template>
-  <!-- Runaway Buttons -->
-  <div
-    ref="container"
-    class="app-container"
-    @mousemove="onMouseMove"
-  >
+  <!-- Landing page with runaway buttons -->
+  <div v-if="isLandingPage" ref="container" class="app-container" @mousemove="onMouseMove">
     <button
       v-for="(button, index) in buttons"
       :key="index"
-      :style="{
-        position: 'absolute',
-        left: button.x + 'px',
-        top: button.y + 'px'
-      }"
+      :style="{ position: 'absolute', left: button.x + 'px', top: button.y + 'px' }"
       @click="handleClick(index)"
     >
       {{ buttonLabels[index] }}
     </button>
   </div>
 
-  <!-- Partner's content (commented out) -->
-  <div class="">
-    <section class="">
-      <h1 class="">
-        Mahjong, Reimagined
-      </h1>
-      <p class="">
-        Play classic Mahjong with modern design, smooth animations, and friends anywhere.
-      </p>
-
-      <div class="flex justify-center gap-4">
-        <nav>
-          <RouterLink to="/">Go to Home</RouterLink>
-          <RouterLink to="/about">Go to About</RouterLink>
-        </nav>
-        <main>
-          <RouterView />
-        </main>
-      </div>
-    </section>
+  <!-- Router content for other pages -->
+  <div v-else class="router-container">
+    <button class="back-btn" @click="goBack">Back</button>
+    <div class="page-text">
+      <RouterView />
+    </div>
   </div>
 </template>
 
 <script lang="ts">
-import { ref } from 'vue'
+import { ref, computed } from 'vue'
 import { useRunawayButtons } from './useRunawayButtons'
-
-// Partner's imports (commented out)
-import { RouterLink, RouterView } from 'vue-router'
+import { useRouter, useRoute, RouterView } from 'vue-router'
 
 export default {
   setup() {
     const container = ref<HTMLElement | null>(null)
     const { buttons, moveButton } = useRunawayButtons(3)
+    const router = useRouter()
+    const route = useRoute()
 
     const buttonLabels = [
       "Register Player",
@@ -60,14 +38,20 @@ export default {
       "Start / Log Game Session"
     ]
 
-    const buttonMessages = [
-      "Justin watches ryan constantly.",
-      "Justin watching lillia pr0n",
-      "Ouid"
+    const buttonRoutes = [
+      '/register-player',
+      '/view-player-stats',
+      '/start-log-game-session'
     ]
 
+    const isLandingPage = computed(() => route.path === '/')
+
     function handleClick(index: number) {
-      alert(buttonMessages[index])
+      router.push(buttonRoutes[index])
+    }
+
+    function goBack() {
+      router.push('/')
     }
 
     function onMouseMove(event: MouseEvent) {
@@ -81,7 +65,15 @@ export default {
       })
     }
 
-    return { buttons, container, onMouseMove, buttonLabels, handleClick }
+    return {
+      buttons,
+      container,
+      onMouseMove,
+      buttonLabels,
+      handleClick,
+      goBack,
+      isLandingPage
+    }
   },
 }
 </script>
@@ -91,6 +83,7 @@ html, body {
   margin: 0;
   padding: 0;
   overflow: hidden;
+  font-family: sans-serif;
 }
 
 .app-container {
@@ -101,6 +94,7 @@ html, body {
   height: 100vh;
 }
 
+/* Mahjong tile buttons */
 button {
   cursor: pointer;
   transition: left 0.05s, top 0.05s;
@@ -116,5 +110,34 @@ button {
   font-weight: bold;
   text-align: center;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+/* Back button (small) */
+.back-btn {
+  display: inline-block;
+  margin-bottom: 30px;
+  padding: 8px 16px;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  border-radius: 6px;
+  border: 2px solid #333;
+  background-color: #eee;
+}
+
+/* Router container */
+.router-container {
+  position: relative;
+  z-index: 10;
+  margin: 40px;
+  text-align: center;
+}
+
+/* Huge page text */
+.page-text {
+  font-size: 80px; /* really big text */
+  font-weight: bold;
+  line-height: 1.2;
+  margin-top: 20px;
 }
 </style>
