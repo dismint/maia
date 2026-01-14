@@ -20,7 +20,6 @@
   </div>
 
   <!-- Partner's content (commented out) -->
-  <!--
   <div class="min-h-screen bg-gradient-to-br from-emerald-50 to-amber-50 text-gray-800">
     <section class="max-w-6xl mx-auto px-6 py-20 text-center">
       <h1 class="text-5xl md:text-6xl font-bold mb-6">
@@ -41,7 +40,6 @@
       </div>
     </section>
   </div>
-  -->
 </template>
 
 <script lang="ts">
@@ -49,7 +47,7 @@ import { ref } from 'vue'
 import { useRunawayButtons } from './useRunawayButtons'
 
 // Partner's imports (commented out)
-// import { RouterLink, RouterView } from 'vue-router'
+import { RouterLink, RouterView } from 'vue-router'
 
 export default {
   setup() {
