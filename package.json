@@ -24,7 +24,8 @@
     "cors": "^2.8.5",
     "dotenv": "^17.2.3",
     "express": "^5.2.1",
-    "vue": "^3.5.26"
+    "vue": "^3.5.26",
+    "vue-router": "4"
   },
   "devDependencies": {
     "@prisma/adapter-libsql": "^7.2.0",
