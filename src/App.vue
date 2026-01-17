@@ -1,15 +1,24 @@
 <template>
   <!-- Landing page with runaway buttons -->
-  <div v-if="isLandingPage" ref="container" class="app-container" @mousemove="onMouseMove">
+  <div
+    v-if="isLandingPage"
+    ref="container"
+    class="app-container"
+    @mousemove="onMouseMove"
+  >
     <!-- Form on top of buttons -->
-    <div style="position: relative; z-index: 10; pointer-events: auto;">
+    <div style="position: relative; z-index: 10; pointer-events: auto">
       <h1>Create User</h1>
       <CreateUser />
     </div>
     <button
       v-for="(button, index) in buttons"
       :key="index"
-      :style="{ position: 'absolute', left: button.x + 'px', top: button.y + 'px' }"
+      :style="{
+        position: 'absolute',
+        left: button.x + 'px',
+        top: button.y + 'px',
+      }"
       @click="handleClick(index)"
     >
       {{ buttonLabels[index] }}
@@ -26,55 +35,55 @@
 </template>
 
 <script lang="ts">
-import { ref, computed } from 'vue'
-import { useRunawayButtons } from './useRunawayButtons'
-import { useRouter, useRoute, RouterView } from 'vue-router'
+import { ref, computed } from "vue";
+import { useRunawayButtons } from "./useRunawayButtons";
+import { useRouter, useRoute, RouterView } from "vue-router";
 
 // Partner's imports (commented out)
 // import { RouterLink, RouterView } from 'vue-router'
-import CreateUser from './components/CreateUser.vue'
+import CreateUser from "./components/CreateUser.vue";
 
 export default {
   components: {
-    CreateUser, 
+    CreateUser,
   },
   setup() {
-    const container = ref<HTMLElement | null>(null)
-    const { buttons, moveButton } = useRunawayButtons(3)
-    const router = useRouter()
-    const route = useRoute()
+    const container = ref<HTMLElement | null>(null);
+    const { buttons, moveButton } = useRunawayButtons(3);
+    const router = useRouter();
+    const route = useRoute();
 
     const buttonLabels = [
       "Register Player",
       "View Player Stats",
-      "Start / Log Game Session"
-    ]
+      "Start / Log Game Session",
+    ];
 
     const buttonRoutes = [
-      '/register-player',
-      '/view-player-stats',
-      '/start-log-game-session'
-    ]
+      "/register-player",
+      "/view-player-stats",
+      "/start-log-game-session",
+    ];
 
-    const isLandingPage = computed(() => route.path === '/')
+    const isLandingPage = computed(() => route.path === "/");
 
     function handleClick(index: number) {
-      router.push(buttonRoutes[index])
+      router.push(buttonRoutes[index]);
     }
 
     function goBack() {
-      router.push('/')
+      router.push("/");
     }
 
     function onMouseMove(event: MouseEvent) {
-      if (!container.value) return
-      const rect = container.value.getBoundingClientRect()
-      const mouseX = event.clientX - rect.left
-      const mouseY = event.clientY - rect.top
+      if (!container.value) return;
+      const rect = container.value.getBoundingClientRect();
+      const mouseX = event.clientX - rect.left;
+      const mouseY = event.clientY - rect.top;
 
       buttons.value.forEach((_, i) => {
-        moveButton(i, mouseX, mouseY, rect.width, rect.height)
-      })
+        moveButton(i, mouseX, mouseY, rect.width, rect.height);
+      });
     }
 
     return {
@@ -84,14 +93,15 @@ export default {
       buttonLabels,
       handleClick,
       goBack,
-      isLandingPage
-    }
+      isLandingPage,
+    };
   },
-}
+};
 </script>
 
 <style>
-html, body {
+html,
+body {
   margin: 0;
   padding: 0;
   overflow: hidden;
@@ -109,7 +119,9 @@ html, body {
 /* Mahjong tile buttons */
 button {
   cursor: pointer;
-  transition: left 0.05s, top 0.05s;
+  transition:
+    left 0.05s,
+    top 0.05s;
   width: 120px;
   height: 180px;
   border-radius: 12px;
