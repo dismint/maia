@@ -1,0 +1,39 @@
+/* reset styles */
+
+@use "$lib/styles/variables" as *;
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  font-family: sans-serif;
+}
+
+button,
+input,
+select,
+textarea {
+  all: unset;
+  box-sizing: border-box;
+}
+
+/* real styles begin here */
+
+body {
+  margin: 0 auto;
+  box-sizing: border-box;
+  max-width: min(800px, 75%);
+  line-height: 1.4;
+  font-family: "Source Serif 4 Variable", serif;
+  font-size: 16px;
+  color: $primary;
+  background-color: $background;
+}
