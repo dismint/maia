@@ -1,13 +1,27 @@
 <script lang="ts">
+  import { onMount } from 'svelte';
+  import { checkAuth, user, isAuthenticated } from '../stores/auth';
+    import Login from './Login.svelte';
   let filename = $state(1);
 
   function increment() {
     filename += 1;
   }
+  
+  onMount(async () => {
+    await checkAuth();
+  });
 </script>
 
 <div class="homepage">
   <h1>Maia</h1>
+  {#if $isAuthenticated && $user}
+    <p>Welcome, {$user?.email}!</p>
+  {:else}
+    <p>Please log in to see super special message.</p>
+    <Login />
+  {/if}
+
   <input />
   <div class="tile-container">
     {#each Array(3) as _, outerIndex}
